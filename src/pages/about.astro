@@ -1,18 +1,72 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import '../styles/global.css';
+const pageTitle = "About Me";
 
+const identity = {
+  firstName: "にかわ",
+  country: "日本",
+  occupation: "エンジニア",
+  hobbies: ["景色", "バードウォッチング", "野球"],
+};
+
+const skills = ["HTML", "CSS", "JavaScript", "React", "Astro", "Writing Docs"];
+
+const happy = true;
+const finished = false;
+const goal = 3;
+
+const skillColor = "navy";
 ---
 
-<Layout title="アバウトページ">
-    <a href="/">ホーム</a>
-    <a href="/blog/">blogページ</a>
-    <body>
-        <h1>My Astro Site</h1>
-        <h1>Aboutページ</h1>
-        <h2>... and my new Astro site!</h2>
-      
-        <p>I am working through Astro's introductory tutorial. This is the second page on my website, and it's the first one I built myself!</p>
-      
-        <p>This site will update as I complete more of the tutorial, so keep checking back and see how my journey is going!</p>
-      </body>
-</Layout>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{pageTitle}</title>
+    <style define:vars={{skillColor}}>
+      h1 {
+        color: purple;
+        font-size: 4rem;
+      }
+      .skill {
+        color: var(--skillColor);
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="/">Home</a>
+    <a href="/about/">About</a>
+    <a href="/blog/">Blog</a>
+    <h1>{pageTitle}</h1>
+    <h2>... and my new Astro site!</h2>
+    <p>私の名前は{identity.firstName}</p>
+    <p>私の生まれは{identity.country}です。仕事は{identity.occupation}です</p>
+
+    {
+      identity.hobbies.length >= 2 && (
+        <ul>
+          <li>趣味</li>
+          <li>{identity.hobbies[0]}</li>
+          <li>{identity.hobbies[1]}</li>
+        </ul>
+      )
+    }
+
+    <ul>
+      {skills.map((skill) => <li class="skill">{skill}</li>)}
+    </ul>
+
+    {happy && <p>I am happy to be learning Astro!</p>}
+
+    {finished && <p>I finished this tutorial!</p>}
+
+    {
+      goal === 3 ? (
+        <p>My goal is to finish in 3 days.</p>
+      ) : (
+        <p>My goal is not 3 days.</p>
+      )
+    }
+  </body>
+</html>
